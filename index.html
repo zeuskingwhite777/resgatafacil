@@ -3,53 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resgate Fácil - Portal de Transações</title>
+    <title>Resgate Fácil - Painel</title>
     <style>
-        body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            text-align: center;
-            padding-top: 15vh;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #0b0e11;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
         .container {
+            width: 100%;
             max-width: 400px;
-            margin: 0 auto;
-            background: #1a1a1a;
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #151a21;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid #222d3b;
         }
         h1 {
-            font-size: 24px;
-            color: #00ff66;
-            margin-bottom: 10px;
+            font-size: 22px;
+            color: #00c853;
+            margin-bottom: 8px;
+            text-align: center;
         }
-        p {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 25px;
+        .subtitle {
+            font-size: 13px;
+            color: #8b949e;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .card-saldo {
+            background: #1f2937;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #374151;
+            text-align: center;
+        }
+        .card-saldo span {
+            font-size: 12px;
+            color: #9ca3af;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .card-saldo h2 {
+            font-size: 28px;
+            color: #ffffff;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: #c9d1d9;
+            margin-bottom: 6px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #0b0e11;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: #00c853;
         }
         .btn {
-            background-color: #00ff66;
-            color: #000;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 16px;
             width: 100%;
+            padding: 14px;
+            background: #00c853;
+            color: #0b0e11;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+        .btn:hover {
+            background: #00b048;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #151a21;
+            padding: 24px;
+            border-radius: 16px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #30363d;
+        }
+        .modal-content h3 {
+            color: #00c853;
+            margin-bottom: 12px;
+        }
+        .modal-content p {
+            font-size: 14px;
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+        .modal-btn {
+            padding: 10px 20px;
+            background: #21262d;
+            color: #fff;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .modal-btn:hover {
+            background: #30363d;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Resgate Fácil</h1>
-        <p>Infraestrutura segura para resgates e transações digitais.</p>
-        <button class="btn" onclick="alert('Sistema online e operacional!')">Acessar Painel</button>
+        <p class="subtitle">Painel de Transações e Saques</p>
+
+        <div class="card-saldo">
+            <span>Saldo Disponível</span>
+            <h2>R$ 1.450,00</h2>
+        </div>
+
+        <form id="formSaque" onsubmit="realizarSaque(event)">
+            <div class="form-group">
+                <label for="valor">Valor do Saque (R$)</label>
+                <input type="number" id="valor" placeholder="0,00" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipoChave">Tipo de Chave PIX</label>
+                <select id="tipoChave" required>
+                    <option value="" disabled selected>Selecione o tipo</option>
+                    <option value="cpf">CPF</option>
+                    <option value="telefone">Telefone</option>
+                    <option value="email">E-mail</option>
+                    <option value="aleatoria">Chave Aleatória</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="chave">Sua Chave PIX</label>
+                <input type="text" id="chave" placeholder="Digite sua chave aqui" required>
+            </div>
+
+            <button type="submit" class="btn">Solicitar Saque</button>
+        </form>
     </div>
+
+    <!-- Modal de Sucesso -->
+    <div class="modal" id="modalSucesso">
+        <div class="modal-content">
+            <h3>Sucesso!</h3>
+            <p>Sua solicitação de saque foi processada e será enviada via PIX em instantes.</p>
+            <button class="modal-btn" onclick="fecharModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        function realizarSaque(event) {
+            event.preventDefault();
+            const valor = document.getElementById('valor').value;
+            const chave = document.getElementById('chave').value;
+            
+            if(valor && chave) {
+                document.getElementById('modalSucesso').style.display = 'flex';
+            }
+        }
+
+        function fecharModal() {
+            document.getElementById('modalSucesso').style.display = 'none';
+            document.getElementById('formSaque').reset();
+        }
+    </script>
+
 </body>
 </html>
