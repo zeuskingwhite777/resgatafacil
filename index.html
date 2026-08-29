@@ -1,209 +1,616 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resgate Fácil - Painel</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        body {
-            background-color: #0b0e11;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            background: #151a21;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            border: 1px solid #222d3b;
-        }
-        h1 {
-            font-size: 22px;
-            color: #00c853;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-        .subtitle {
-            font-size: 13px;
-            color: #8b949e;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        .card-saldo {
-            background: #1f2937;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #374151;
-            text-align: center;
-        }
-        .card-saldo span {
-            font-size: 12px;
-            color: #9ca3af;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .card-saldo h2 {
-            font-size: 28px;
-            color: #ffffff;
-        }
-        .form-group {
-            margin-bottom: 16px;
-        }
-        label {
-            display: block;
-            font-size: 13px;
-            color: #c9d1d9;
-            margin-bottom: 6px;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px;
-            background: #0b0e11;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        input:focus, select:focus {
-            border-color: #00c853;
-        }
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: #00c853;
-            color: #0b0e11;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 8px;
-        }
-        .btn:hover {
-            background: #00b048;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: #151a21;
-            padding: 24px;
-            border-radius: 16px;
-            max-width: 320px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid #30363d;
-        }
-        .modal-content h3 {
-            color: #00c853;
-            margin-bottom: 12px;
-        }
-        .modal-content p {
-            font-size: 14px;
-            color: #8b949e;
-            margin-bottom: 20px;
-        }
-        .modal-btn {
-            padding: 10px 20px;
-            background: #21262d;
-            color: #fff;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .modal-btn:hover {
-            background: #30363d;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resgata Fácil — Gateway</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    background: #080a0f;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.header {
+    height: 72px;
+    border-bottom: 1px solid #20242d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    background: #0c0f15;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#7c3aed,#4f46e5);
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+}
+
+.user {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #202530;
+    display: grid;
+    place-items: center;
+    color: #aab1c0;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 72px);
+}
+
+.sidebar {
+    width: 230px;
+    border-right: 1px solid #20242d;
+    padding: 25px 15px;
+    background: #0b0e13;
+}
+
+.menu-title {
+    color: #666d7b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 12px 12px 10px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    color: #9299a8;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.menu:hover,
+.menu.active {
+    background: #171b25;
+    color: #fff;
+}
+
+.main {
+    flex: 1;
+    padding: 30px;
+    max-width: 1400px;
+}
+
+.welcome {
+    margin-bottom: 28px;
+}
+
+.welcome h1 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.welcome p {
+    color: #777f8f;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #10141c;
+    border: 1px solid #202530;
+    border-radius: 16px;
+    padding: 22px;
+}
+
+.card-label {
+    color: #7e8696;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.value {
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.green {
+    color: #34d399;
+}
+
+.purple {
+    color: #9b7cff;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 18px;
+}
+
+.panel {
+    background: #10141c;
+    border: 1px solid #202530;
+    border-radius: 16px;
+    padding: 22px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.panel-header h2 {
+    font-size: 17px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 11px 16px;
+    background: #7c3aed;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #6d28d9;
+}
+
+.chart {
+    height: 210px;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding-top: 20px;
+}
+
+.bar {
+    flex: 1;
+    background: linear-gradient(to top,#5b21b6,#9b7cff);
+    border-radius: 7px 7px 2px 2px;
+    min-height: 25px;
+    opacity: .9;
+}
+
+.transaction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #1d222b;
+}
+
+.transaction:last-child {
+    border-bottom: 0;
+}
+
+.tx-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tx-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #17221d;
+    display: grid;
+    place-items: center;
+    color: #34d399;
+}
+
+.tx-name {
+    font-weight: 650;
+}
+
+.tx-date {
+    color: #666e7d;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.amount {
+    font-weight: 700;
+}
+
+.status {
+    font-size: 11px;
+    color: #34d399;
+    margin-top: 3px;
+    text-align: right;
+}
+
+.quick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.quick button {
+    background: #171b24;
+    border: 1px solid #292f3a;
+    color: #fff;
+    border-radius: 12px;
+    padding: 17px 10px;
+    cursor: pointer;
+}
+
+.quick button:hover {
+    background: #202530;
+}
+
+.pix {
+    margin-top: 18px;
+    background: linear-gradient(135deg,#17132a,#111522);
+    border: 1px solid #33275b;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.pix h3 {
+    margin-bottom: 8px;
+}
+
+.pix p {
+    color: #858da0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal {
+    width: 100%;
+    max-width: 430px;
+    background: #11151d;
+    border: 1px solid #292f3b;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.modal h2 {
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 100%;
+    padding: 14px;
+    background: #0b0e13;
+    border: 1px solid #2a303b;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    margin-bottom: 13px;
+}
+
+.input:focus {
+    border-color: #7c3aed;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel {
+    background: #252a34;
+}
+
+@media(max-width: 900px) {
+    .sidebar {
+        display: none;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 600px) {
+    .header {
+        padding: 0 16px;
+    }
+
+    .main {
+        padding: 20px 14px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .value {
+        font-size: 21px;
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>Resgate Fácil</h1>
-        <p class="subtitle">Painel de Transações e Saques</p>
+<header class="header">
+    <div class="logo">
+        <div class="logo-icon">R</div>
+        Resgata Fácil
+    </div>
+    <div class="user">RF</div>
+</header>
 
-        <div class="card-saldo">
-            <span>Saldo Disponível</span>
-            <h2>R$ 1.450,00</h2>
+<div class="layout">
+
+<aside class="sidebar">
+
+    <div class="menu-title">Principal</div>
+
+    <div class="menu active">▦ &nbsp; Dashboard</div>
+    <div class="menu">▣ &nbsp; Cobranças</div>
+    <div class="menu">↔ &nbsp; Transações</div>
+    <div class="menu">▤ &nbsp; Relatórios</div>
+
+    <div class="menu-title">Conta</div>
+
+    <div class="menu">⚙ &nbsp; Configurações</div>
+    <div class="menu">? &nbsp; Suporte</div>
+
+</aside>
+
+<main class="main">
+
+    <section class="welcome">
+        <h1>Olá, parceiro 👋</h1>
+        <p>Acompanhe suas movimentações pela Resgata Fácil.</p>
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+            <div class="card-label">Saldo disponível</div>
+            <div class="value">R$ 12.480,90</div>
         </div>
 
-        <form id="formSaque" onsubmit="realizarSaque(event)">
-            <div class="form-group">
-                <label for="valor">Valor do Saque (R$)</label>
-                <input type="number" id="valor" placeholder="0,00" step="0.01" required>
-            </div>
-
-            <div class="form-group">
-                <label for="tipoChave">Tipo de Chave PIX</label>
-                <select id="tipoChave" required>
-                    <option value="" disabled selected>Selecione o tipo</option>
-                    <option value="cpf">CPF</option>
-                    <option value="telefone">Telefone</option>
-                    <option value="email">E-mail</option>
-                    <option value="aleatoria">Chave Aleatória</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="chave">Sua Chave PIX</label>
-                <input type="text" id="chave" placeholder="Digite sua chave aqui" required>
-            </div>
-
-            <button type="submit" class="btn">Solicitar Saque</button>
-        </form>
-    </div>
-
-    <!-- Modal de Sucesso -->
-    <div class="modal" id="modalSucesso">
-        <div class="modal-content">
-            <h3>Sucesso!</h3>
-            <p>Sua solicitação de saque foi processada e será enviada via PIX em instantes.</p>
-            <button class="modal-btn" onclick="fecharModal()">Fechar</button>
+        <div class="card">
+            <div class="card-label">Total recebido</div>
+            <div class="value green">R$ 48.291,40</div>
         </div>
+
+        <div class="card">
+            <div class="card-label">Transações</div>
+            <div class="value">1.284</div>
+        </div>
+
+        <div class="card">
+            <div class="card-label">Taxa média</div>
+            <div class="value purple">2,49%</div>
+        </div>
+
+    </section>
+
+    <section class="content">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>Volume de recebimentos</h2>
+                <button class="btn" onclick="openModal()">+ Cobrança</button>
+            </div>
+
+            <div class="chart">
+                <div class="bar" style="height:35%"></div>
+                <div class="bar" style="height:50%"></div>
+                <div class="bar" style="height:42%"></div>
+                <div class="bar" style="height:68%"></div>
+                <div class="bar" style="height:58%"></div>
+                <div class="bar" style="height:82%"></div>
+                <div class="bar" style="height:72%"></div>
+                <div class="bar" style="height:94%"></div>
+                <div class="bar" style="height:77%"></div>
+                <div class="bar" style="height:88%"></div>
+                <div class="bar" style="height:100%"></div>
+                <div class="bar" style="height:91%"></div>
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>Ações rápidas</h2>
+            </div>
+
+            <div class="quick">
+                <button onclick="openModal()">💰<br><br>Criar cobrança</button>
+                <button onclick="alert('Área de transações do protótipo')">↔<br><br>Transações</button>
+                <button onclick="alert('QR Code Pix — demonstração')">▣<br><br>Pix</button>
+                <button onclick="alert('Relatório gerado — demonstração')">▤<br><br>Relatórios</button>
+            </div>
+
+            <div class="pix">
+                <h3>⚡ Pix</h3>
+                <p>
+                    Gere cobranças Pix rapidamente e acompanhe
+                    o status dos pagamentos em um só lugar.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <h2>Transações recentes</h2>
+                <button class="btn" onclick="alert('Todas as transações — demonstração')">
+                    Ver todas
+                </button>
+            </div>
+
+            <div class="transaction">
+                <div class="tx-left">
+                    <div class="tx-icon">✓</div>
+                    <div>
+                        <div class="tx-name">Pagamento Pix</div>
+                        <div class="tx-date">Hoje, 20:41</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="amount">+ R$ 249,90</div>
+                    <div class="status">Pago</div>
+                </div>
+            </div>
+
+            <div class="transaction">
+                <div class="tx-left">
+                    <div class="tx-icon">✓</div>
+                    <div>
+                        <div class="tx-name">Pagamento Pix</div>
+                        <div class="tx-date">Hoje, 19:22</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="amount">+ R$ 89,90</div>
+                    <div class="status">Pago</div>
+                </div>
+            </div>
+
+            <div class="transaction">
+                <div class="tx-left">
+                    <div class="tx-icon">✓</div>
+                    <div>
+                        <div class="tx-name">Pagamento Pix</div>
+                        <div class="tx-date">Hoje, 17:05</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="amount">+ R$ 599,00</div>
+                    <div class="status">Pago</div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+</div>
+
+<div class="modal-bg" id="modal">
+
+    <div class="modal">
+
+        <h2>Nova cobrança</h2>
+
+        <input class="input" id="cliente" placeholder="Nome do cliente">
+
+        <input class="input" id="valor" placeholder="Valor (ex: 49,90)" inputmode="decimal">
+
+        <input class="input" placeholder="Descrição da cobrança">
+
+        <div class="modal-buttons">
+            <button class="btn cancel" onclick="closeModal()">Cancelar</button>
+            <button class="btn" onclick="criarCobranca()">Criar cobrança</button>
+        </div>
+
     </div>
 
-    <script>
-        function realizarSaque(event) {
-            event.preventDefault();
-            const valor = document.getElementById('valor').value;
-            const chave = document.getElementById('chave').value;
-            
-            if(valor && chave) {
-                document.getElementById('modalSucesso').style.display = 'flex';
-            }
+</div>
+
+<script>
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1543054168732733620/XmF51N7ZtTzhA2-ePJhdZ7HvKaCriImQX3RLxvQvcyCtMckLJcaKzutxIG0eBj3iUIkv";
+
+    function openModal() {
+        document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    function criarCobranca() {
+        const cliente = document.getElementById("cliente").value;
+        const valor = document.getElementById("valor").value;
+
+        if (!cliente || !valor) {
+            alert("Preencha o nome e o valor da cobrança.");
+            return;
         }
 
-        function fecharModal() {
-            document.getElementById('modalSucesso').style.display = 'none';
-            document.getElementById('formSaque').reset();
-        }
-    </script>
+        const mensagem = {
+            content: `🚨 **Nova Cobrança Criada!**\n👤 **Cliente:** ${cliente}\n💰 **Valor:** R$ ${valor}`
+        };
+
+        fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mensagem)
+        }).catch(err => console.log(err));
+
+        alert(
+            "Cobrança criada com sucesso!\n\n" +
+            "Cliente: " + cliente +
+            "\nValor: R$ " + valor +
+            "\n\nModo demonstração."
+        );
+
+        closeModal();
+
+        document.getElementById("cliente").value = "";
+        document.getElementById("valor").value = "";
+    }
+</script>
 
 </body>
 </html>
